@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <script>
+            let summa = prompt("Напишите сумму покупки", "");
+            let disc = prompt("Напишите скидку от 1 до 5%", "")
+            if (disc > 5 || disc < 1) {
+                document.write("Число должно быть от 1 до 5, обновите страницу и попробуйте снова");
+            }
+            else {
+                let sdisc = (summa * disc) / 100;
+                let total = summa - sdisc;
+                document.write("Общая стоймость: ", summa, " руб.<br>");
+                document.write("Скидка в рублях: ", sdisc, " руб.<br>");
+                document.write("Стоймость покупки со скидкой: ", total, " руб.");
+            }
+        </script>
+    </head>
+    <body></body>
+</html>

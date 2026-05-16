@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <style>
+            table {
+                border: 1px solid black;
+            }
+            td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let tableHtml = '<table>';
+            let currentNumber = 1;
+
+            for (let i = 0; i < 10; i++) {
+                tableHtml += '<tr>';
+                
+                for (let j = 0; j < 10; j++) {
+                    
+                    let isTriangular = false;
+                    
+                    for (let n = 1; n <= 14; n++) {
+                        if (currentNumber === (n * (n + 1)) / 2) {
+                            isTriangular = true;
+                            break;
+                        }
+                    }
+
+                    if (isTriangular) {
+                        tableHtml += `<td style="color: red;">${currentNumber}</td>`;
+                    } else {
+                        tableHtml += `<td>${currentNumber}</td>`;
+                    }
+                    currentNumber++;
+                }
+                tableHtml += '</tr>';
+            }
+            tableHtml += '</table>';
+            document.write(tableHtml);
+        </script>
+    </body>
+</html>
