@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+    </head>
+    <body>
+        <div>
+            <h2>Динамический список</h2>
+            <button type="button" id="addFieldBtn">+ Добавить поле</button>
+            <form id="dynamicForm">
+                <div id="inputsContainer">
+                    <div>
+                        <input type="text" name="dynamicInput" placeholder="Введите значение" required>
+                        <button type="button" onclick="removeField(this)">Удалить</button>
+                    </div>
+                </div>
+                <button type="submit">Отправить данные</button>
+            </form>
+            <div id="result"></div>
+        </div>
+        <script>
+            const container = document.getElementById('inputsContainer');
+            const addBtn = document.getElementById('addFieldBtn');
+            const form = document.getElementById('dynamicForm');
+            const resultDiv = document.getElementById('result');
+
+            addBtn.addEventListener('click', () => {
+                const inputGroup = document.createElement('div');
+                inputGroup.className = 'input-group';
+
+                inputGroup.innerHTML = `
+                    <input type="text" name="dynamicInput" placeholder="Введите значение" required>
+                    <button type="button" onclick="removeField(this)">Удалить</button>
+                `;
+
+                container.appendChild(inputGroup);
+            });
+
+            function removeField(button) {
+                const totalFields = container.getElementsByClassName('input-group').length;
+                button.parentElement.remove();
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const inputs = document.querySelectorAll('input[name="dynamicInput"]');
+                const values = [];
+
+                inputs.forEach(input => {
+                    if(input.value.trim() !== "") {
+                        values.push(input.value.trim());
+                    }
+                });
+
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<br>Собранные данные: ${values.join(" ")}`;
+            });
+        </script>
+    </body>
+</html>

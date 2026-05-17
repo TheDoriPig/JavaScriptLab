@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            .control-panel {
+                background: rgba(255, 255, 255, 0.85);
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(4px);
+                text-align: center;
+                max-width: 400px;
+                width: 100%;
+            }
+            .btn-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            button {
+                padding: 10px 15px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                background: white;
+                cursor: pointer;
+                font-weight: bold;
+                transition: all 0.2s ease;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="control-panel">
+        <h2>Управление фоном</h2>
+        <p>Выберите фон</p>
+        <div class="btn-grid">
+            <button onclick="changeBackground('flow.jpg')">Цветы</button>
+            <button onclick="changeBackground('mount.jpg')">Горы</button>
+            <button onclick="changeBackground('ptisa.jpg')">Птица</button>
+            <button onclick="changeBackground('tree.jpg')">Деревья</button>
+        </div>
+    </div>
+    <script>
+        function changeBackground(url) {
+            document.body.style.backgroundImage = "url('" + url + "')";
+        }
+    </script>
+    </body>
+</html>
