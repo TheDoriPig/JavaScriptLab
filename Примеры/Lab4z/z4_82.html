@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Параметр функции - имя формы</title>
+    <script>
+        function square2(obj) {
+            var a = obj.st1.value
+            var h = obj.st2.value
+            var s = (a * h) / 2;
+            obj.res.value = s
+        }
+    </script>
+</head>
+<body>
+    <p>Вычисление площади треугольника</p>
+    <form name="form1">
+        <p>Основание: <input type="text" size=7 name="st1">
+        <p>Высота: <input type="text" size=7 name="st2">
+        <p>
+            <input type="button" value="Вычиcлить"
+                   onclick="square2(form1)">
+        <p>Площадь <input type="text" size=7 name="res">
+    </form>
+</body>
+</html>

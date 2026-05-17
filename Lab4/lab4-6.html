@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+    </head>
+    <body>
+        <table border="1" width="100" height="100">
+            <tr>
+                <td id="targetCell" align="left" valign="top">Текст</td>
+            </tr>
+        </table>
+        <br>
+
+        <form name="alignForm">
+            <p><b>Выберите горизонтальное расположение:</b></p>
+            <input type="radio" name="hAlign" value="left" checked> слева<br>
+            <input type="radio" name="hAlign" value="center"> по центру<br>
+            <input type="radio" name="hAlign" value="right"> справа<br>
+
+            <p><b>Выберите вертикальное расположение:</b></p>
+            <input type="checkbox" name="vAlign" value="top" checked onclick="keepOneCheckbox(this)"> сверху<br>
+            <input type="checkbox" name="vAlign" value="middle" onclick="keepOneCheckbox(this)"> посередине<br>
+            <input type="checkbox" name="vAlign" value="bottom" onclick="keepOneCheckbox(this)"> внизу<br>
+            <br>
+
+            <input type="button" value="Выполнить" onclick="applyAlignment(this.form)">
+        </form>
+
+        <script>
+            function keepOneCheckbox(selectedCheckbox) {
+                let checkboxes = document.getElementsByName('vAlign');
+                checkboxes.forEach(cb => {
+                    if (cb !== selectedCheckbox) {
+                        cb.checked = false;
+                    }
+                });
+
+                if (!selectedCheckbox.checked) {
+                    selectedCheckbox.checked = true;
+                }
+            }
+
+            function applyAlignment(formObj) {
+                let cell = document.getElementById('targetCell');
+
+                let checkedRadio = formObj.hAlign.value;
+
+                let checkedCheckbox = "top";
+                let checkboxes = formObj.vAlign;
+                for (let i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        checkedCheckbox = checkboxes[i].value;
+                        break;
+                    }
+                }
+
+                cell.setAttribute('align', checkedRadio);
+                cell.setAttribute('valign', checkedCheckbox);
+            }
+        </script>
+    </body>
+</html>

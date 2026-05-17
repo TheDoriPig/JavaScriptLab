@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Поле ввода, в которое можно вводить только числа</title>
+    <script>
+        function numOnly(evt) {
+            evt = (evt) ? evt : event;
+            var elem = (evt.target) ? evt.target : evt.srcElement
+            var code = (evt.charCode) ? evt.charCode : evt.keyCode
+            if (code > 31 && (code < 48 || code > 57)) {
+                alert("В данное поле можно вводить только числа.");
+                elem.focus()
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form name="myform">
+        <input type="text" onkeypress="return numOnly(event)">
+    </form>
+</body>
+</html>

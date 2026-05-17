@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+    </head>
+    <body>
+        <script>
+            let Str = "AJJAISJVBBASBDBANS*ASDJKJCL:AJKLJS/";
+
+            document.write("Исходная строка:<br>", Str, "<br>");
+
+            let modStr = Str.replace(/[AB]/g, "$&;");
+
+            document.write("Строка после вставки ';':<br>" + modStr);
+
+            let countC = 0;
+                
+            let startIndex = Str.indexOf('*');
+            let endIndex = Str.indexOf('/');
+
+            if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
+
+                let subStr = Str.substring(startIndex + 1, endIndex);
+                    
+                for (let i = 0; i < subStr.length; i++) {
+                    if (subStr[i] === 'C') {
+                            countC++;
+                    }
+                }
+                document.write("<br>Количество символов 'C' в ней: " + countC);
+            }
+            else {
+                document.write("<br>В тексте отсутствуют С между * и /")
+            }
+        </script>
+    </body>
+</html>

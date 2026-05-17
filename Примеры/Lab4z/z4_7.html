@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Обращение к элементам формы</title>
+</head>
+<body>
+    <form name="myForm">
+        <input type="text" name="myName">
+        <input type="button" name="myButton"
+               value="Заполнить" onclick="Click()">
+    </form>
+    <script language="javascript" type="text/javascript">
+        function Click() {
+            document.myForm.myName.value = 'Иванов'
+            document.myForm.myButton.value = 'Уже заполнено'
+        }
+    </script>
+</body>
+</html>

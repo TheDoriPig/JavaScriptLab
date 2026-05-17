@@ -1,0 +1,18 @@
+<script>
+    //строка, в которой нужно что-то найти
+    str = "Мой телефонный номер: " + "33-22-44. Номер моего редактора: " + "222-44-55 и 323-22-33<br>";
+    document.write("Исходная строка<br>");
+    document.write(str);
+    //шаблон, по которому искать, задает поиск семизначных номеров.
+    pattern = /[0-9]{3}-\d{2}-\d{2}/g;
+    //вывод результатов поиска
+    document.write(str.match(pattern), "<br>");
+
+    //Проверка E-mail
+    str1 = "nick@gstu.by";
+    pattern = /^[A-Za-z][A-z0-9-]*@([A-Za-z0-9][A-z0-9-]*\.)+[A-Za-z]{2,}$/;
+    if (pattern.test(str1))
+    { document.write("OK"); }
+    else
+    { document.write("Bad"); }
+</script>

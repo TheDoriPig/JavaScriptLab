@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+    </head>
+    <body>
+        <div class="container">
+            <script>
+                let Str = " Я сходил в магазин и купил продуктов на целую неделю вперед ";
+
+                document.write("Исходная строка: \"", Str, "\"<br>");
+
+                let words = Str.trim().split(/\s+/);
+                let shortWordsCount = 0;
+
+                for (let i = 0; i < words.length; i++) {
+                    if (words[i].length < 3 && words[i].length > 0) {
+                        shortWordsCount++;
+                    }
+                }
+
+                let resultString = "";
+
+                if (words.length > 0) {
+                    if (words.length === 1) {
+                        resultString = words[0];
+                    } else {
+                        let firstWord = words[0];
+                        let secondWord = words[1];
+                        
+                        let firstWordEnd = Str.indexOf(firstWord) + firstWord.length;
+                        let secondWordStart = Str.indexOf(secondWord, firstWordEnd);
+                        let initialSpaces = Str.substring(firstWordEnd, secondWordStart);
+
+                        let remainingWordsCombined = "";
+                        for (let i = 1; i < words.length; i++) {
+                            remainingWordsCombined += words[i];
+                        }
+
+                        resultString = firstWord + initialSpaces + remainingWordsCombined;
+                    }
+                }
+
+                document.write("Количество слов длиной меньше 3: ", shortWordsCount, "<br><br>");
+                document.write("Обработанная строка: \"", resultString, "\"");
+            </script>
+        </div>
+    </body>
+</html>

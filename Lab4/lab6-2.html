@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+    </head>
+    <body>
+        <form name="salaryForm">
+            <h3>Введите начисленную зарплату за следующие месяцы</h3>
+            
+            Январь: <input type="text" name="m1" value="300"><br><br>
+            Февраль: <input type="text" name="m2" value="200"><br><br>
+            Март: <input type="text" name="m3" value="500"><br><br>
+            Апрель: <input type="text" name="m4" value="250"><br><br>
+            Май: <input type="text" name="m5" value="350"><br><br>
+            Июнь: <input type="text" name="m6" value="500"><br><br>
+            Средняя зарплата: <input type="text" name="averageResult" readonly><br><br>
+            
+            <input type="button" value="Вычислить" onclick="calculateAverage(this.form)">
+            <input type="reset" value="Обновить">
+        </form>
+        <script>
+            function calculateAverage(formObj) {
+                let jan = parseFloat(formObj.m1.value) || 0;
+                let feb = parseFloat(formObj.m2.value) || 0;
+                let mar = parseFloat(formObj.m3.value) || 0;
+                let apr = parseFloat(formObj.m4.value) || 0;
+                let may = parseFloat(formObj.m5.value) || 0;
+                let jun = parseFloat(formObj.m6.value) || 0;
+                
+                let sum = jan + feb + mar + apr + may + jun;
+                let average = sum / 6;
+                
+                formObj.averageResult.value = average.toFixed(2);
+            }
+        </script>
+
+    </body>
+</html>

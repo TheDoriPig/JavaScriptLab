@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Проверка заполнения полей</title>
+    <script>
+        function validate(form) {
+            // проверка текстовых полей
+            if (!form.name.value) {
+                alert('Пожалуйста, введите имя')
+                return false
+            }
+            if (!form.lastname.value) {
+                alert('Пожалуйста, введите фамилию')
+                return false
+            }
+            // проверка переключателей
+            var passed = false
+            for (var i = 0; i < form.sex.length; i++) {
+                if (form.sex[i].checked) passed = true
+            }
+            if (!passed) {
+                alert('Пожалуйста, укажите ваш пол')
+                return false
+            }
+            return true
+        }
+    </script>
+</head>
+<body>
+    <form name="myform">
+        <table border="0" align="left" frame="void" rules="none">
+            <caption> Введите ваши данные: </caption>
+            <tr>
+                <td align="right">
+                    Имя:
+                </td>
+                <td> <input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Фамилия:
+                </td>
+                <td>
+                    <input type="text" name="lastname">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Пол:</td>
+                <td>
+                    <input type="radio" name="sex" value="male"> мужской
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="radio" name="sex" value="female"> женский
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Должность:
+                </td>
+                <td>
+                    <input type="text" name="Position"
+                           size="50">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Адрес:
+                </td>
+                <td>
+                    <input type="text" name="Address"
+                           size="50">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Готово" onclick="return validate(this.form);">
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"> <h4>Внимание!</h4></td>
+            </tr>
+            <tr>
+                <td align="left" colspan="2">
+                    Поля Имя, Фамилия и Пол обязательны для заполнения
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html

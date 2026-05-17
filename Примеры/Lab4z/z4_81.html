@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Обработка значений полей формы</title>
+    <script>
+        function square(a, h) {
+            var s = (a * h) / 2;
+            document.write("Площадь треугольника равна " + s);
+            return s
+        }
+    </script>
+</head>
+<body>
+    <p>Пример сценария со значениями полей формы</p>
+    <form name="form1">
+        <p>Основание: <input type="text" size=5 name="st1">
+        <p>Высота: <input type="text" size=5 name="st2">
+        <p>
+            <input type="button" value="Вычислить"
+                   onclick="square(document.form1.st1.value, document.form1.st2.value)">
+    </form>
+</body>
+</html>

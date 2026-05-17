@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Данные из формы типа "переключатель". Выделенный элемент</title>
+    <script>
+        function vid() {
+            var d = document;
+            var k;
+            if (d.form1.fv[0].checked) k = d.form1.fv[0].value
+            else
+                if (d.form1.fv[1].checked) k = d.form1.fv[1].value
+                else
+                    if (d.form1.fv[2].checked) k = d.form1.fv[2].value
+                    else
+                        if (d.form1.fv[3].checked) k = d.form1.fv[3].value
+            d.form1.res.value = k
+        }
+    </script>
+</head>
+<body>
+    <form name="form1">
+        Выберите форму витража<br>
+        <input type="radio" name="fv" value="прямоугольник">прямоугольник<br>
+        <input type="radio" name="fv" value="квадрат">квадрат<br>
+        <input type="radio" name="fv" value="тpeyгoльник">тpeyгoльник<br>
+        <input type="radio" name="fv" value="кpyг">кpyг<br>
+        <input type="button" value="Bыпoлнить" onclick="vid()">
+        <input type="reset" value="Отменить">
+        <p>Форма витража: <input type="text" name="res">
+    </form>
+</body>
+</html>

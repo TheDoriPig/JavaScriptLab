@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Расположение текста или изображения внутри ячейки таблицы</title>
+    <script>
+        function set(obj) {
+            var d = document
+            if (obj.elements[0].checked) { d.all("itab").align = "LEFT" }
+            else
+                if (obj.elements[1].checked) { d.all("itab").align = "MIDDLE" }
+                else
+                    if (obj.elements[2].checked) { d.all("itab").align = "RIGHT" }
+            if (obj.elements[3].checked) { d.all("itab").vAlign = "TOP" }
+            else
+                if (obj.elements[4].checked) { d.all("itab").vAlign = "MIDDLE" }
+                else
+                    if (obj.elements[5].checked) { d.all("itab").vAlign = "BOTTOM" }
+        }
+        function rset(obj) {
+            var d = document
+            d.all("itab").align = "LEFT"
+            d.all("itab").vAlign = "TOP"
+        }
+    </script>
+</head>
+<body bgcolor="#F8F8FF">
+    <h3 style="text-align:center;">Pacпoлoжeниe текста или изображения
+        внутри ячейки
+    </h3>
+    Выберите значения атрибутов, которые Вас интересуют,
+    и нажмите кнопку <strong>
+        Просмотр</strong>.
+        <table style="border:2px;">
+            <tr>
+                <td><h4 style="text-align:center;">Значения атрибутов выравнивания таблицы</h4>
+                <td><h4 style="text-align:center;">Действия при выбранных значениях атрибутов</h4>
+            </tr>
+            <tr>
+                <td>
+                    <form name="form1">
+                        Горизонтальное выравнивание<br>
+                        <input type="radio" name="al" checked>LEFT<br>
+                        <input type="radio" name="al">CENTER<br>
+                        <input type="radio" name="al">RIGHT<p>
+                            Вертикальное выравнивание<br>
+                            <input type="radio" name="vl" checked>TOP<br>
+                            <input type="radio" name="vl">MIDDLE<br>
+                            <input type="radio" name="vl">BOTTOM<br>
+                    </form>
+                </td>
+                <td id="itab" bgcolor=blue height=160
+                    valign=TOP align=LEFT>
+                    <img src="ris.gif" height=120>
+                </td>
+            </tr>
+        </table><p>
+            <input type="button" value="Просмотр" onclick="set(form1)">
+            <input type="reset" value="Обновить" onclick="rset()">
+</body>
+</html>

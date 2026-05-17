@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Данные, представленные с помощью тега select</title>
+    <script>
+        function testsel() {
+            var d = document
+            var r = "Выбранная форма: "
+            if (((d.forms["form1"].elements[0])[0]).selected)
+                r = r + ((d.forms["form1"].elements[0])[0]).text + " "
+            else
+                if (((d.forms["form1"].elements[0])[1]).selected)
+                    r = r + ((d.forms["form1"].elements[0])[1]).text + " "
+                else
+                    if (((d.forms["form1"].elements[0])[2]).selected)
+                        r = r + ((d.forms["form1"].elements[0])[2]).text + " "
+                    else
+                        if (((d.forms["form1"].elements[0])[3]).selected)
+                            r = r + ((d.forms["form1"].elements[0])[3]).text + " "
+            form1.res.value = r
+        }
+    </script>
+</head>
+<body>
+    <form name="form1">
+        Выберите форму витража<br>
+        <select name="vid" size=1>
+            <option value="0">прямоугольник
+            <option value="1">квадрат
+            <option value="2">треугольник
+            <option value="3">круг
+        </select>
+        <input type="button" value="Проверить" onclick="testsel()">
+        <input type="text" size=50 name="res">
+        <input type="reset" value="Отменить">
+    </form>
+</body>
+</html>

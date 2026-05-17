@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Пример работы с формой данных</title>
+</head>
+<body>
+    <form action="" method="POST">
+
+        <center>Поля для ввода</center><br>
+        Поле для ввода текста<input type="text" name="txt"><br>
+        Поле для ввода пароля<input type="password" name="pswd"><br>
+        Скрытое поле<input type="hidden" name="hid" value="Это поле не отображается"><br>
+
+        <center>Текстовая область</center><br>
+        <textarea name="t_area" cols="20" rows="5" wrap="virtual">Область техта шириной в 20 символов и с 5 строками</textarea><br>
+        <hr>
+
+        <center>Возможность выбора нескольких вариантов</center><br>
+        <input type="checkbox" name="var1" value="1" checked>Вариант1 (флаг включен по умолчанию)
+        <input type="checkbox" name="var2" value="2">Вариант2
+        <input type="checkbox" name="var3" value="3">Вариант3
+        <hr>
+
+        <center>Возможность выбора одного из нескольких вариантов</center><br>
+        <center>Выберите пол</center><br>
+        <input type="radio" name="sex" value="Мужской" checked>Мужской (по умолчанию)
+        <input type="radio" name="sex" value="Женский">Женский
+        <hr>
+
+        <center>Список без множественного выбора</center><br>
+        <select name="month" size=1>
+            <option value=1>Январь</option>
+            <option value=2>Февраль</option>
+            <option value=3>Март</option>
+            <option value=4>Апрель</option>
+            <option value=5>Май</option>
+            <option value=6>Июнь</option>
+            <option value=7>Июль</option>
+            <option value=8>Август</option>
+            <option value=9>Сентябрь</option>
+            <option value=10>Октябрьь</option>
+            <option value=11>Ноябрь</option>
+            <option value=12>Декабрь</option>
+        </select>
+        <hr>
+
+        <center>Список c множественным выбором</center><br>
+        <select name="months[]" size=12 multiple>
+            <option value=01>Январь</option>
+            <option value=02>Февраль</option>
+            <option value=03>Март</option>
+            <option value=04>Апрель</option>
+            <option value=05>Май</option>
+            <option value=06>Июнь</option>
+            <option value=07>Июль</option>
+            <option value=08>Август</option>
+            <option value=09>Сентябрь</option>
+            <option value=10>Октябрьь</option>
+            <option value=11>Ноябрь</option>
+            <option value=12>Декабрь</option>
+        </select>
+        <hr>
+
+        <center>Кнопки для выбора действий</center><br>
+        <input type="submit" name="go" value="Отправить данные">
+        <input type="reset" value="Очистить поля">
+    </form>
+
+</body>
+</html>
