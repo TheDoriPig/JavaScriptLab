@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <script>
+            let array = [];
+            for (let i = 0; i < 15; i++) {
+                array[i] = Math.floor(Math.random() * 100);
+                document.write(array[i], " ");
+            }
+
+            let minV = array[0];
+            let minInd = 0;
+
+            for (let i = 1; i < 15; i++) {
+                if (array[i] < minV) {
+                    minV = array[i];
+                    minInd = i;
+                }
+            }
+
+            document.write("<br>Минимальный элемент: ", minV, "<br>");
+            document.write("Третий элемент массива: ", array[2], "<br>");
+
+            let temp = array[2];
+            array[2] = array[minInd];
+            array[minInd] = temp;
+
+            document.write("Массив после перестановки: ");
+            for (i = 0; i < 15; i++) {
+                document.write(array[i], " ");
+            }
+        </script>
+    </head>
+    <body></body>
+</html>

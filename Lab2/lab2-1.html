@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <script>
+            function WeekDay(size, day, color) {
+                document.write("<div style=\"font-size:", size, "pt; color: ", color, ";\">", day, "</div>");
+            }
+            const days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+            const colors = ["black", "grey", "darkblue", "blue", "purple", "pink", "red"];
+            for (let i = 0; i < 7; i++) {
+                let size = 14 - i;
+                WeekDay(size, days[i], colors[i]);
+            }
+        </script>
+    </head>
+    <body></body>
+</html>

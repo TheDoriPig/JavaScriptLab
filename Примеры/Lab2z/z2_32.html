@@ -1,0 +1,16 @@
+<script>
+    function getFactorial(n) {
+        var result;
+        if (n > 0) {
+            result = n * getFactorial(n - 1);
+        } else if (n == 0) {
+            result = 1;
+        } else {
+            result = null;
+        }
+        return result;
+    }
+    n = prompt("Ведите число, факториал которго вы хотите вычислить");
+    x = getFactorial(n);
+    document.write("<H1>" + n + "!=" + x);
+</script>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+    </head>
+    <body>
+        <h2>В соответствии с вариантом необходимо написать скрипт для вычисления значения переменной b.</h2>
+        <img src="lab2-2.png" width="200px">
+        <h3>Разработчик скрипта: Пашковский Андрей Геннадьевич</h3>
+        <script>
+            function Result(x, y, z) {
+                let result = (Math.log10(Math.sqrt(x) + Math.sqrt(y) + 2)) / Math.abs(2 * z)
+                return { value: result};
+            }
+
+            let rx = prompt("Введите значение x", "");
+            let ry = prompt("Введите значение y", "");
+            let rz = prompt("Введите значение z", "");
+
+            let b = Result(rx, ry, rz);
+
+            document.write("Значение x = ", rx, "<br>");
+            document.write("Значение y = ", ry, "<br>");
+            document.write("Значение z = ", rz, "<br>");
+            document.write("Результат вычесления: b = ", b.value);
+        </script>
+    </body>
+</html>

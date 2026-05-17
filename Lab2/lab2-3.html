@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <script>
+            let treug = []
+            document.write("Треугольные числа: ");
+            for (let n = 1; n <= 10; n++) {
+                treug[n-1] = (n * (n + 1)) / 2;
+                document.write(treug[n-1], "&nbsp;&nbsp;");
+            }
+
+            let kvd = []
+            document.write("<br>Квадратные числа: ");
+            for (let n = 1; n <= 10; n++) {
+                kvd[n-1] = Math.pow(n, 2);
+                document.write(kvd[n-1], " ");
+            }     
+        
+            let rez = [...treug, ...kvd];
+            document.write("<br>Объединенные массивы: ", rez);
+
+            rez.reverse();
+            document.write("<br>rez в обратном порядке: ", rez);
+        </script>
+    </head>
+    <body></body>
+</html>

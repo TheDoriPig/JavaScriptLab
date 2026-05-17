@@ -1,0 +1,9 @@
+<script>
+    var today = new Date()
+    var hours = today.getHours()
+    var minute = today.getMinutes()
+    if (minute < 10) minute = '0' + minute
+    if (hours < 12) { var time12 = hours + ':' + minute + ' am' }
+    else { var time12 = hours - 12 + ':' + minute + ' pm' }
+    document.write('текущее время - ', time12)
+</script>

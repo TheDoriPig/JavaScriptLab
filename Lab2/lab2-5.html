@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <script>
+            var fruits = ['apple', 'pineapple', 'mango', 'melon', 'grape'];
+            var citrus = ['orange', 'lemon', 'lime'];
+            document.write("Массив fruits: ", fruits.join(" "), "<br>");
+            document.write("Массив citrus: ", citrus.join(" "), "<br>");
+            var union = fruits.concat(citrus);
+            document.write("Объединеный массив: ", union.join(" "), "<br>");
+            fruits.splice(3, 0, "pear", "cherry", "plum", "raspberry", "strawberry");
+            document.write("Массив fruits, в котором после mango вставлены: pear, cherry, plum, raspberry, strawberry: ", fruits.join(" "), "<br>");
+            for (let i = 0; i < 3; i++) {
+                fruits.pop();
+            }
+            document.write("Массив fruits, в котором удалены последние 3 элемента: ", fruits.join(" "), "<br>");
+            fruits.sort();
+            document.write("Отсортированный в алфавитном порядке массив fruits: ", fruits.join(" "), "<br>");
+            fruits.reverse(); 
+            document.write("Массив fruits в обратном алфавитном порядке: ", fruits.join(" "), "<br>");
+            fruits.sort((a, b) => a.length - b.length);
+            document.write("Массив fruits, отсортированный по длине слов: ", fruits.join(" "));
+        </script>
+    </head>
+    <body></body>
+</html>
