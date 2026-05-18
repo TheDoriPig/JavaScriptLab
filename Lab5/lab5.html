@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <style>
+            /* Базовые настройки для центрирования макета */
+            body {
+                margin: 0;
+                background: #e2e8f0;
+                display: flex;
+                justify-content: center;
+            }
+            /* Главный контейнер строго 800px по заданию */
+            .page {
+                width: 800px;
+                background: white;
+                font-family: Arial, sans-serif;
+            }
+            /* 1. Шапка сайта */
+            .header {
+                background: #2c3e50;
+                color: white;
+                padding: 20px;
+            }
+            /* 2. Меню навигации (горизонтальное для нечетного варианта) */
+            .menu {
+                background: #34495e;
+                padding: 15px 20px;
+            }
+            .menu a {
+                color: white;
+                text-decoration: none;
+                margin-right: 25px; /* Отступы между ссылками */
+            }
+            /* 3. Основной контент */
+            .info {
+                background: #ecf0f1;
+                padding: 20px;
+                min-height: 300px;
+            }
+            /* 4. Подвал сайта */
+            .footer {
+                background: #2c3e50;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            <!-- 1. header — заголовок, логотип и название -->
+            <div class="header">
+                <img src="viz.png" alt="Логотип" width="50" height="50" style="vertical-align: middle; margin-right: 15px;">
+                <span style="font-size: 24px; font-weight: bold; vertical-align: middle;">Лабораторная работа 5</span>
+            </div>
+
+            <div class="menu">
+                <a href="#">Задание 1</a>
+                <a href="#">Задание 2</a>
+                <a href="#">Задание 3</a>
+            </div>
+
+            <!-- 3. info — основной раздел с информативной частью -->
+            <div id="info" class="info">
+                <p>Текст задания 1, 2, 3</p>
+            </div>
+
+            <div class="footer">
+                <p>Студент: Пашковский Андрей Геннадьевич</p>
+                <p>Группа: ЗИТ-11 | Дата: 2026 г. | E-mail: pashkovskiy2003@gmail.com</p>
+            </div>
+        </div>
+    </body>
+</html>

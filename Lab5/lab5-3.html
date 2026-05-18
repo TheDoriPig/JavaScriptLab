@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f1f5f9;
+                color: #334155;
+                padding: 30px;
+            }
+            .report-card {
+                max-width: 900px;
+                margin: 0 auto;
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            }
+            h1 {
+                color: #1e293b;
+                border-bottom: 3px solid #cbd5e1;
+                padding-bottom: 10px;
+            }
+            .user-info, .stats {
+                background: #f8fafc;
+                padding: 15px;
+                border-radius: 6px;
+                margin: 20px 0;
+                border-left: 4px solid #3b82f6;
+            }
+            .stats {
+                border-left-color: #8b5cf6;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #cbd5e1;
+                padding: 12px;
+                text-align: left;
+            }
+            th {
+                background-color: #475569;
+                color: white;
+            }
+            /* Стилизация правильных ответов */
+            .correct {
+                background-color: #d1fae5;
+                color: #065f46;
+                font-weight: bold;
+            }
+            /* Стилизация неправильных ответов */
+            .incorrect {
+                background-color: #fee2e2;
+                color: #991b1b;
+            }
+            ul {
+                padding-left: 20px;
+            }
+            li {
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="report-card" id="output"></div>
+        <script>
+        let startTest = confirm("Желаете пройти тест по веб-технологиям?");
+
+        if (!startTest) {
+            document.getElementById('output').innerHTML = "<h1>Тестирование отменено пользователем.</h1>";
+        } else {
+            let fio, age, gender;
+
+            while (!fio || fio.trim() === "") {
+                fio = prompt("Введите ваши ФИО:");
+            }
+            while (!age || isNaN(age) || age <= 0) {
+                age = prompt("Введите ваш возраст (числом):");
+            }
+            while (!gender || (gender.toLowerCase() !== "муж" && gender.toLowerCase() !== "жен")) {
+                gender = prompt("Введите ваш пол (муж / жен):");
+            }
+
+            const questionsBank = [
+                { q: "1. Что означает HTML?\n1) HyperText Markup Language\n2) HighText Machine Language\n3) HyperText Main Link\n4) Hyper Tool Markup Language", a: ["1", "A"] },
+                { q: "2. Какой тег используется для создания ссылки?\n1) <link>\n2) <a>\n3) <href>\n4) <url>", a: ["2", "B"] },
+                { q: "3. Какой CSS-селектор выбирает элемент по id?\n1) .\n2) #\n3) *\n4) :", a: ["2", "B"] },
+                { q: "4. Какое свойство задает цвет текста в CSS?\n1) text-color\n2) font-color\n3) color\n4) background", a: ["3", "C"] },
+                { q: "5. Внутри какого тега в HTML пишется JavaScript?\n1) <js>\n2) <scripting>\n3) <javascript>\n4) <script>", a: ["4", "D"] },
+                { q: "6. Какой оператор строгого равенства в JS?\n1) ==\n2) ===\n3) =\n4) !=", a: ["2", "B"] },
+                { q: "7. Какое свойство CSS отвечает за внутренние отступы?\n1) margin\n2) border\n3) padding\n4) width", a: ["3", "C"] },
+                { q: "8. Как объявить переменную в JS?\n1) var\n2) let\n3) const\n4) Любой из этих", a: ["4", "D"] },
+                { q: "9. Какой тег создает перенос строки?\n1) <br>\n2) <lb>\n3) <break>\n4) <p>", a: ["1", "A"] },
+                { q: "10. Для чего используется свойство display: flex?\n1) Для анимации\n2) Для работы со шрифтами\n3) Для построения сеток макета\n4) Для работы с цветом", a: ["3", "C"] }
+            ];
+
+            let userAnswers = [];
+            let responseTimes = [];
+
+            for (let i = 0; i < questionsBank.length; i++) {
+                let answer = "";
+                let startTime = performance.now();
+
+                while (true) {
+                    let input = prompt(questionsBank[i].q + "\n\nВведите ответ (1-4 или A-D):");
+                    if (input) {
+                        answer = input.trim().toUpperCase();
+                        if (["1","2","3","4","A","B","C","D"].includes(answer)) {
+                            break;
+                        }
+                    }
+                    alert("Ошибка ввода! Ответ должен быть числом 1-4 или буквой A-D.");
+                }
+
+                let endTime = performance.now();
+                let duration = ((endTime - startTime) / 1000).toFixed(2);
+
+                userAnswers.push(answer);
+                responseTimes.push(parseFloat(duration));
+            }
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            let correctListHTML = "";
+            let incorrectListHTML = "";
+            
+            let totalTime = 0;
+            let maxTime = 0;
+            let maxTimeIndex = 0;
+            const threshold = 5.0;
+            let slowQuestions = [];
+
+            let tableRowsHTML = "";
+
+            for (let i = 0; i < questionsBank.length; i++) {
+                let isCorrect = questionsBank[i].a.includes(userAnswers[i]);
+                let rowClass = isCorrect ? "correct" : "incorrect";
+                
+                let displayCorrectAnswer = questionsBank[i].a.join(" или ");
+                
+                if (isCorrect) {
+                    correctCount++;
+                    correctListHTML += `<li>${questionsBank[i].q.split('\n')[0]}</li>`;
+                } else {
+                    incorrectCount++;
+                    incorrectListHTML += `<li>${questionsBank[i].q.split('\n')[0]} (Ваш ответ: ${userAnswers[i]})</li>`;
+                }
+
+                let t = responseTimes[i];
+                totalTime += t;
+                if (t > maxTime) {
+                    maxTime = t;
+                    maxTimeIndex = i;
+                }
+                if (t > threshold) {
+                    slowQuestions.push(`${questionsBank[i].q.split('\n')[0]} (${t} сек.)`);
+                }
+
+                tableRowsHTML += `
+                    <tr class="${rowClass}">
+                        <td>${i + 1}</td>
+                        <td>${questionsBank[i].q.split('\n')[0]}</td>
+                        <td>${displayCorrectAnswer}</td>
+                        <td>${userAnswers[i]}</td>
+                        <td>${t} сек.</td>
+                    </tr>
+                `;
+            }
+
+            let avgTime = (totalTime / questionsBank.length).toFixed(2);
+            let correctPercent = ((correctCount / questionsBank.length) * 100).toFixed(1);
+            let incorrectPercent = ((incorrectCount / questionsBank.length) * 100).toFixed(1);
+            let maxTimeQuestion = questionsBank[maxTimeIndex].q.split('\n')[0];
+
+            let outputHTML = `
+                <h1>Результаты тестирования знаний HTML/CSS/JS</h1>
+                
+                <div class="user-info">
+                    <h2>Данные тестируемого:</h2>
+                    <p><strong>ФИО:</strong> ${fio}</p>
+                    <p><strong>Возраст:</strong> ${age}</p>
+                    <p><strong>Пол:</strong> ${gender}</p>
+                </div>
+
+                <h2>Таблица результатов:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Вопрос</th>
+                            <th>Правильный ответ</th>
+                            <th>Ответ пользователя</th>
+                            <th>Время ответа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRowsHTML}
+                    </tbody>
+                </table>
+
+                <div class="stats">
+                    <h2>Аналитические показатели:</h2>
+                    <p><strong>Процент правильных ответов:</strong> ${correctPercent}%</p>
+                    <p><strong>Процент неправильных ответов:</strong> ${incorrectPercent}%</p>
+                    <p><strong>Среднее время ответа на вопрос:</strong> ${avgTime} сек.</p>
+                    <p><strong>Вопрос, на который затрачено больше всего времени:</strong><br> ${maxTimeQuestion} (${maxTime} сек.)</p>
+                </div>
+
+                <h2>Дополнительные списки:</h2>
+                
+                <h3>1. Список вопросов с правильным ответом:</h3>
+                ${correctCount > 0 ? `<ul>${correctListHTML}</ul>` : "<p>Нет правильных ответов</p>"}
+
+                <h3>2. Список вопросов с неверным ответом:</h3>
+                ${incorrectCount > 0 ? `<ul>${incorrectListHTML}</ul>` : "<p>Нет неверных ответов</p>"}
+
+                <h3>3. Вопросы, превысившие временной порог (${threshold} сек.):</h3>
+                ${slowQuestions.length > 0 ? `<ul><li>${slowQuestions.join('</li><li>')}</li></ul>` : "<p>Все ответы даны быстрее порогового времени.</p>"}
+            `;
+
+            document.getElementById('output').innerHTML = outputHTML;
+        }
+        </script>
+    </body>
+</html>

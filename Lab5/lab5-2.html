@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Пашковский Андрей</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #e2e8f0;
+                padding: 40px 20px;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: white;
+                padding: 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            h3 {
+                color: #2c3e50;
+                border-bottom: 2px solid #ecf0f1;
+                padding-bottom: 10px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                padding: 12px;
+                border: 1px solid #bdc3c7;
+                text-align: left;
+            }
+            th {
+                background-color: #34495e;
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            .result-row {
+                font-weight: bold;
+                background-color: #e8f8f5 !important;
+                color: #16a085;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container" id="main-content">
+            <h3>Разработчик скрипта: Пашковский Андрей Геннадьевич</h3>
+        </div>
+        <script>
+            function Result(x, y, z) {
+                let nx = Number(x);
+                let ny = Number(y);
+                let nz = Number(z);
+                
+                let result = (Math.log10(Math.sqrt(nx) + Math.sqrt(ny) + 2)) / Math.abs(2 * nz);
+                return { value: result };
+            }
+
+            let rx = prompt("Введите значение x", "");
+            let ry = prompt("Введите значение y", "");
+            let rz = prompt("Введите значение z", "");
+
+            let b = Result(rx, ry, rz);
+
+            let table = document.createElement('table');
+
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Значение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Исходное значение x</td><td>${rx}</td></tr>
+                    <tr><td>Исходное значение y</td><td>${ry}</td></tr>
+                    <tr><td>Исходное значение z</td><td>${rz}</td></tr>
+                    <tr class="result-row"><td>Результат вычисления (b)</td><td>${b.value.toFixed(4)}</td></tr>
+                </tbody>
+            `;
+
+            let container = document.getElementById('main-content');
+            container.appendChild(table);
+        </script>
+    </body>
+</html>
