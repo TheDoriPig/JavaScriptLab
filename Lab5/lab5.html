@@ -4,73 +4,346 @@
         <meta charset="UTF-8">
         <title>Пашковский Андрей</title>
         <style>
-            /* Базовые настройки для центрирования макета */
             body {
                 margin: 0;
-                background: #e2e8f0;
-                display: flex;
-                justify-content: center;
-            }
-            /* Главный контейнер строго 800px по заданию */
-            .page {
-                width: 800px;
-                background: white;
+                padding: 20px 0;
+                background-color: #f5f5f5;
                 font-family: Arial, sans-serif;
             }
-            /* 1. Шапка сайта */
-            .header {
-                background: #2c3e50;
-                color: white;
-                padding: 20px;
+            .grid-container {
+                display: grid;
+                width: 800px;
+                margin: 0 auto;
+                grid-template-rows: auto 1fr auto; 
+                grid-template-columns: 200px 1fr;   
+                grid-template-areas: 
+                    "header header"
+                    "menu   info"
+                    "footer footer";
+                min-height: 90vh;
+                gap: 10px;
             }
-            /* 2. Меню навигации (горизонтальное для нечетного варианта) */
+
+            .header { grid-area: header; }
+            .menu   { grid-area: menu; }
+            .info   { grid-area: info; }
+            .footer { grid-area: footer; }
+
+            .grid-container > * {
+                background-color: #fff;
+                border: 2px solid #000;
+                padding: 15px;
+                box-sizing: border-box;
+            }
+            .header {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+            .header .logo {
+                width: 50px;
+                height: 50px;
+                object-fit: contain;
+            }
+            .header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
             .menu {
-                background: #34495e;
-                padding: 15px 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
             }
             .menu a {
-                color: white;
                 text-decoration: none;
-                margin-right: 25px; /* Отступы между ссылками */
-            }
-            /* 3. Основной контент */
-            .info {
-                background: #ecf0f1;
-                padding: 20px;
-                min-height: 300px;
-            }
-            /* 4. Подвал сайта */
-            .footer {
-                background: #2c3e50;
-                color: white;
-                padding: 20px;
+                color: #333;
+                padding: 8px;
+                border: 1px solid #ccc;
+                background: #eee;
                 text-align: center;
+            }
+            .menu a:hover {
+                background: #ddd;
+            }
+            .footer {
+                text-align: center;
+                font-size: 14px;
+                color: #555;
+            }
+            .footer p {
+                margin: 5px 0;
             }
         </style>
     </head>
     <body>
-        <div class="page">
-            <!-- 1. header — заголовок, логотип и название -->
-            <div class="header">
-                <img src="viz.png" alt="Логотип" width="50" height="50" style="vertical-align: middle; margin-right: 15px;">
-                <span style="font-size: 24px; font-weight: bold; vertical-align: middle;">Лабораторная работа 5</span>
-            </div>
-
-            <div class="menu">
-                <a href="#">Задание 1</a>
-                <a href="#">Задание 2</a>
-                <a href="#">Задание 3</a>
-            </div>
-
-            <!-- 3. info — основной раздел с информативной частью -->
-            <div id="info" class="info">
-                <p>Текст задания 1, 2, 3</p>
-            </div>
-
-            <div class="footer">
-                <p>Студент: Пашковский Андрей Геннадьевич</p>
-                <p>Группа: ЗИТ-11 | Дата: 2026 г. | E-mail: pashkovskiy2003@gmail.com</p>
-            </div>
+        <div class="grid-container">
+            <header class="header">
+                <img src="viz.png" alt="Логотип" class="logo">
+                <h1>Лаболаторная работа 5</h1>
+            </header>
+            <nav class="menu">
+                <a onclick="runTask1()">Задание 1</a>
+                <a onclick="runTask2()">Задание 2</a>
+                <a onclick="output()">Задание 3</a>
+            </nav>
+            <main class="info" id="info-block">
+                <h2>Информационная часть</h2>
+                <p>Здесь располагается все основное содержимое страницы.</p>
+            </main>
+            <footer class="footer">
+                <p>Пашковский Андрей Геннадьевич | Группа: ЗИТ-11</p>
+                <p>Дата создания: 2026г. | Email: pashkovskiy2003@gmail.com</p>
+            </footer>
         </div>
+        <script>
+            function Result(x, y, z) {
+                // Приводим строки из prompt к числам через Float
+                let nx = parseFloat(x);
+                let ny = parseFloat(y);
+                let nz = parseFloat(z);
+                
+                let result = (Math.log10(Math.sqrt(nx) + Math.sqrt(ny) + 2)) / Math.abs(2 * nz);
+                return { value: result };
+            }
+
+            function runTask1() {
+                // 1. Запрашиваем данные у пользователя
+                let rx = prompt("Введите значение x", "");
+                let ry = prompt("Введите значение y", "");
+                let rz = prompt("Введите значение z", "");
+
+                // 2. Считаем результат
+                let b = Result(rx, ry, rz);
+
+                // 3. Находим блок info
+                const infoBlock = document.getElementById('info-block');
+
+                // 4. Формируем HTML-контент и вставляем его внутрь блока info
+                infoBlock.innerHTML = `
+                    <h3>Разработчик скрипта: Пашковский Андрей Геннадьевич</h3>
+                    <p>Значение x = ${rx}</p>
+                    <p>Значение y = ${ry}</p>
+                    <p>Значение z = ${rz}</p>
+                    <h4>Результат вычисления: b = ${b.value}</h4>
+                `;
+            }
+        </script>
+        <script>
+            function Result(x, y, z) {
+                let nx = parseFloat(x);
+                let ny = parseFloat(y);
+                let nz = parseFloat(z);
+                
+                let result = (Math.log10(Math.sqrt(nx) + Math.sqrt(ny) + 2)) / Math.abs(2 * nz);
+                return { value: result };
+            }
+
+            function runTask2() {
+                // 1. Запрашиваем данные у пользователя
+                let rx = prompt("Введите значение x", "4");
+                let ry = prompt("Введите значение y", "9");
+                let rz = prompt("Введите значение z", "2");
+
+                if (rx === null || ry === null || rz === null) return;
+
+                // 2. Считаем результат
+                let b = Result(rx, ry, rz);
+
+                // 3. Открываем новое пустое окно браузера
+                let newWindow = window.open("", "_blank");
+
+                // 4. Записываем чистый HTML со стандартными тегами без стилей
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>Результаты вычислений</title>
+                    </head>
+                    <body>
+                        <h1>Отчет о выполнении вычислений</h1>
+                        <h3>Разработчик скрипта: Пашковский Андрей Геннадьевич</h3>
+                        
+                        <p><strong>Исходные данные:</strong></p>
+                        <ul>
+                            <li>Значение x = ${rx}</li>
+                            <li>Значение y = ${ry}</li>
+                            <li>Значение z = ${rz}</li>
+                        </ul>
+
+                        <p><strong>Результат вычисления:</strong></p>
+                        <p>b = ${b.value}</p>
+
+                        <br>
+                        <button onclick="window.close()">Закрыть страницу</button>
+                    </body>
+                    </html>
+                `);
+                
+                // Закрываем поток записи
+                newWindow.document.close();
+            }
+        </script>
+        <script>
+        let startTest = confirm("Желаете пройти тест по веб-технологиям?");
+        
+        const infoBlock = document.getElementById('info-block');
+
+        if (!startTest) {
+            document.getElementById('output').innerHTML = "<h1>Тестирование отменено пользователем.</h1>";
+        } else {
+            let fio, age, gender;
+
+            while (!fio || fio.trim() === "") {
+                fio = prompt("Введите ваши ФИО:");
+            }
+            while (!age || isNaN(age) || age <= 0) {
+                age = prompt("Введите ваш возраст (числом):");
+            }
+            while (!gender || (gender.toLowerCase() !== "муж" && gender.toLowerCase() !== "жен")) {
+                gender = prompt("Введите ваш пол (муж / жен):");
+            }
+
+            const questionsBank = [
+                { q: "1. Что означает HTML?\n1) HyperText Markup Language\n2) HighText Machine Language\n3) HyperText Main Link\n4) Hyper Tool Markup Language", a: ["1", "A"] },
+                { q: "2. Какой тег используется для создания ссылки?\n1) <link>\n2) <a>\n3) <href>\n4) <url>", a: ["2", "B"] },
+                { q: "3. Какой CSS-селектор выбирает элемент по id?\n1) .\n2) #\n3) *\n4) :", a: ["2", "B"] },
+                { q: "4. Какое свойство задает цвет текста в CSS?\n1) text-color\n2) font-color\n3) color\n4) background", a: ["3", "C"] },
+                { q: "5. Внутри какого тега в HTML пишется JavaScript?\n1) <js>\n2) <scripting>\n3) <javascript>\n4) <script>", a: ["4", "D"] },
+                { q: "6. Какой оператор строгого равенства в JS?\n1) ==\n2) ===\n3) =\n4) !=", a: ["2", "B"] },
+                { q: "7. Какое свойство CSS отвечает за внутренние отступы?\n1) margin\n2) border\n3) padding\n4) width", a: ["3", "C"] },
+                { q: "8. Как объявить переменную в JS?\n1) var\n2) let\n3) const\n4) Любой из этих", a: ["4", "D"] },
+                { q: "9. Какой тег создает перенос строки?\n1) <br>\n2) <lb>\n3) <break>\n4) <p>", a: ["1", "A"] },
+                { q: "10. Для чего используется свойство display: flex?\n1) Для анимации\n2) Для работы со шрифтами\n3) Для построения сеток макета\n4) Для работы с цветом", a: ["3", "C"] }
+            ];
+
+            let userAnswers = [];
+            let responseTimes = [];
+
+            for (let i = 0; i < questionsBank.length; i++) {
+                let answer = "";
+                let startTime = performance.now();
+
+                while (true) {
+                    let input = prompt(questionsBank[i].q + "\n\nВведите ответ (1-4 или A-D):");
+                    if (input) {
+                        answer = input.trim().toUpperCase();
+                        if (["1","2","3","4","A","B","C","D"].includes(answer)) {
+                            break;
+                        }
+                    }
+                    alert("Ошибка ввода! Ответ должен быть числом 1-4 или буквой A-D.");
+                }
+
+                let endTime = performance.now();
+                let duration = ((endTime - startTime) / 1000).toFixed(2);
+
+                userAnswers.push(answer);
+                responseTimes.push(parseFloat(duration));
+            }
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            let correctListHTML = "";
+            let incorrectListHTML = "";
+            
+            let totalTime = 0;
+            let maxTime = 0;
+            let maxTimeIndex = 0;
+            const threshold = 5.0;
+            let slowQuestions = [];
+
+            let tableRowsHTML = "";
+
+            for (let i = 0; i < questionsBank.length; i++) {
+                let isCorrect = questionsBank[i].a.includes(userAnswers[i]);
+                let rowClass = isCorrect ? "correct" : "incorrect";
+                
+                let displayCorrectAnswer = questionsBank[i].a.join(" или ");
+                
+                if (isCorrect) {
+                    correctCount++;
+                    correctListHTML += `<li>${questionsBank[i].q.split('\n')[0]}</li>`;
+                } else {
+                    incorrectCount++;
+                    incorrectListHTML += `<li>${questionsBank[i].q.split('\n')[0]} (Ваш ответ: ${userAnswers[i]})</li>`;
+                }
+
+                let t = responseTimes[i];
+                totalTime += t;
+                if (t > maxTime) {
+                    maxTime = t;
+                    maxTimeIndex = i;
+                }
+                if (t > threshold) {
+                    slowQuestions.push(`${questionsBank[i].q.split('\n')[0]} (${t} сек.)`);
+                }
+
+                tableRowsHTML += `
+                    <tr class="${rowClass}">
+                        <td>${i + 1}</td>
+                        <td>${questionsBank[i].q.split('\n')[0]}</td>
+                        <td>${displayCorrectAnswer}</td>
+                        <td>${userAnswers[i]}</td>
+                        <td>${t} сек.</td>
+                    </tr>
+                `;
+            }
+
+            let avgTime = (totalTime / questionsBank.length).toFixed(2);
+            let correctPercent = ((correctCount / questionsBank.length) * 100).toFixed(1);
+            let incorrectPercent = ((incorrectCount / questionsBank.length) * 100).toFixed(1);
+            let maxTimeQuestion = questionsBank[maxTimeIndex].q.split('\n')[0];
+
+            let outputHTML = `
+                <h1>Результаты тестирования знаний HTML/CSS/JS</h1>
+                
+                <div class="user-info">
+                    <h2>Данные тестируемого:</h2>
+                    <p><strong>ФИО:</strong> ${fio}</p>
+                    <p><strong>Возраст:</strong> ${age}</p>
+                    <p><strong>Пол:</strong> ${gender}</p>
+                </div>
+
+                <h2>Таблица результатов:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Вопрос</th>
+                            <th>Правильный ответ</th>
+                            <th>Ответ пользователя</th>
+                            <th>Время ответа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRowsHTML}
+                    </tbody>
+                </table>
+
+                <div class="stats">
+                    <h2>Аналитические показатели:</h2>
+                    <p><strong>Процент правильных ответов:</strong> ${correctPercent}%</p>
+                    <p><strong>Процент неправильных ответов:</strong> ${incorrectPercent}%</p>
+                    <p><strong>Среднее время ответа на вопрос:</strong> ${avgTime} сек.</p>
+                    <p><strong>Вопрос, на который затрачено больше всего времени:</strong><br> ${maxTimeQuestion} (${maxTime} сек.)</p>
+                </div>
+
+                <h2>Дополнительные списки:</h2>
+                
+                <h3>1. Список вопросов с правильным ответом:</h3>
+                ${correctCount > 0 ? `<ul>${correctListHTML}</ul>` : "<p>Нет правильных ответов</p>"}
+
+                <h3>2. Список вопросов с неверным ответом:</h3>
+                ${incorrectCount > 0 ? `<ul>${incorrectListHTML}</ul>` : "<p>Нет неверных ответов</p>"}
+
+                <h3>3. Вопросы, превысившие временной порог (${threshold} сек.):</h3>
+                ${slowQuestions.length > 0 ? `<ul><li>${slowQuestions.join('</li><li>')}</li></ul>` : "<p>Все ответы даны быстрее порогового времени.</p>"}
+            `;
+
+            document.getElementById('output').innerHTML = outputHTML;
+        }
+        </script>
     </body>
 </html>
