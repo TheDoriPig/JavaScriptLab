@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <title>Пашковский Андрей</title>
+        <meta charset="UTF-8">
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .error { color: red; font-size: 12px; }
+            .question-btn { margin: 5px; padding: 5px 10px; cursor: pointer; }
+            .question-btn.answered { background-color: green; color: white; }
+            .form-group { margin: 10px 0; }
+            .form-group label { display: inline-block; width: 100px; }
+        </style>
+    </head>
+    <body>
+        <h1>Система тестирования</h1>
+        <div>
+            <h3>Описание тестового задания</h3>
+            <p>Тематика: Основы информационных технологий.<br>
+            Правила ответа: на каждый вопрос выберите один правильный вариант ответа.</p>
+        </div>
+        <div>
+            <h3>Данные о тестируемом</h3>
+            <div class="form-group">
+                <label>Фамилия:</label>
+                <input type="text" id="lastName">
+            </div>
+            <div class="form-group">
+                <label>Имя:</label>
+                <input type="text" id="firstName">
+            </div>
+            <div class="form-group">
+                <label>Отчество:</label>
+                <input type="text" id="patronymic">
+            </div>
+            
+            <div class="form-group">
+                <label>Факультет:</label>
+                <label><input type="radio" name="faculty" value="ФАИС"> ФАИС</label>
+                <label><input type="radio" name="faculty" value="МТФ"> МТФ</label>
+                <label><input type="radio" name="faculty" value="ГЭФ"> ГЭФ</label>
+            </div>
+            
+            <div class="form-group">
+                <label>Группа:</label>
+                <select id="group">
+                    <option value="">Выберите группу</option>
+                    <option value="ЗИТ">ЗИТ</option>
+                    <option value="ЗИ">ЗИ</option>
+                    <option value="ИТ">ИТ</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>E-mail:</label>
+                <input type="text" id="email">
+            </div>
+        </div>
+
+        <div>
+            <h3>Список вопросов</h3>
+            <div id="questionButtons"></div>
+        </div>
+
+        <button id="resultBtn">Результат</button>
+
+        <script>
+
+        function Question(id, text, variants, inputType, correctAnswer) {
+            this.id = id;
+            this.text = text;
+            this.variants = variants;
+            this.inputType = inputType;
+            this.correctAnswer = correctAnswer;
+            this.userAnswer = null;
+        }
+
+        var questions = [
+            new Question(1, "Что означает аббревиатура HTML?", 
+                        ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"],
+                        "radio", "Hyper Text Markup Language"),
+            new Question(2, "Какой язык используется для стилизации веб-страниц?",
+                        ["HTML", "CSS", "JavaScript", "Python"],
+                        "radio", "CSS"),
+            new Question(3, "Сколько бит в одном байте?",
+                        ["4", "8", "16", "32"],
+                        "radio", "8"),
+            new Question(4, "Выберите язык программирования:",
+                        ["HTML", "CSS", "JavaScript", "XML"],
+                        "radio", "JavaScript"),
+            new Question(5, "Что такое операционная система?",
+                        ["Программа для работы с текстом", "Набор программ, управляющих компьютером", "Антивирусная программа", "Браузер"],
+                        "radio", "Набор программ, управляющих компьютером"),
+            new Question(6, "Какой тег используется для создания ссылки в HTML?",
+                        ["<link>", "<a>", "<href>", "<url>"],
+                        "radio", "<a>"),
+            new Question(7, "Выберите расширение текстового файла:",
+                        [".exe", ".jpg", ".txt", ".mp3"],
+                        "radio", ".txt"),
+            new Question(8, "Какая клавиша используется для копирования?",
+                        ["Ctrl+X", "Ctrl+V", "Ctrl+C", "Ctrl+Z"],
+                        "radio", "Ctrl+C")
+        ];
+
+        var userAnswers = {};
+
+        function validateEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePersonalData() {
+            var lastName = document.getElementById("lastName").value.trim();
+            var firstName = document.getElementById("firstName").value.trim();
+            var patronymic = document.getElementById("patronymic").value.trim();
+            var faculty = document.querySelector('input[name="faculty"]:checked');
+            var group = document.getElementById("group").value;
+            var email = document.getElementById("email").value.trim();
+            
+            if (lastName === "") {
+                alert("Введите фамилию");
+                document.getElementById("lastName").value = "";
+                document.getElementById("lastName").focus();
+                return false;
+            }
+            if (firstName === "") {
+                alert("Введите имя");
+                document.getElementById("firstName").value = "";
+                document.getElementById("firstName").focus();
+                return false;
+            }
+            if (patronymic === "") {
+                alert("Введите отчество");
+                document.getElementById("patronymic").value = "";
+                document.getElementById("patronymic").focus();
+                return false;
+            }
+            if (!faculty) {
+                alert("Выберите факультет");
+                return false;
+            }
+            if (group === "") {
+                alert("Выберите группу");
+                return false;
+            }
+            if (email === "") {
+                alert("Введите E-mail");
+                document.getElementById("email").value = "";
+                document.getElementById("email").focus();
+                return false;
+            }
+            if (!validateEmail(email)) {
+                alert("Введите корректный E-mail");
+                document.getElementById("email").value = "";
+                document.getElementById("email").focus();
+                return false;
+            }
+            return true;
+        }
+
+        function showQuestion(question) {
+            var win = window.open("", "questionWin", "width=500,height=400,scrollbars=yes");
+            
+            var html = '<html><head><title>Вопрос ' + question.id + '</title>';
+            html += '<style>body { font-family: Arial; padding: 20px; }';
+            html += '.answer-group { margin: 10px 0; }';
+            html += 'button { margin-top: 20px; padding: 10px; cursor: pointer; }</style>';
+            html += '</head><body>';
+            html += '<h3>Вопрос ' + question.id + '</h3>';
+            html += '<p>' + question.text + '</p>';
+            html += '<form name="answerForm">';
+            
+            if (question.inputType === "radio") {
+                for (var i = 0; i < question.variants.length; i++) {
+                    var checked = (userAnswers[question.id] === question.variants[i]) ? 'checked' : '';
+                    html += '<div class="answer-group">';
+                    html += '<input type="radio" name="answer" value="' + question.variants[i] + '" ' + checked + '>';
+                    html += '<label>' + question.variants[i] + '</label>';
+                    html += '</div>';
+                }
+            }
+            
+            html += '<button type="button" onclick="opener.saveAnswer(' + question.id + ', document.answerForm.answer.value); window.close();">Сохранить ответ</button>';
+            html += '&nbsp;<button type="button" onclick="window.close();">Отмена</button>';
+            html += '</form>';
+            html += '</body></html>';
+            
+            win.document.write(html);
+            win.document.close();
+        }
+
+        function saveAnswer(questionId, answer) {
+            if (!answer) {
+                alert("Пожалуйста, выберите вариант ответа");
+                return false;
+            }
+            userAnswers[questionId] = answer;
+            
+            // Обновляем статус кнопки вопроса
+            var btn = document.getElementById("qbtn_" + questionId);
+            if (btn) {
+                btn.className = "question-btn answered";
+            }
+            return true;
+        }
+
+        function calculateResults() {
+            var correctCount = 0;
+            var results = [];
+            
+            for (var i = 0; i < questions.length; i++) {
+                var q = questions[i];
+                var userAns = userAnswers[q.id] || "Не отвечен";
+                var isCorrect = (userAns === q.correctAnswer);
+                if (isCorrect) correctCount++;
+                
+                results.push({
+                    questionText: q.text,
+                    userAnswer: userAns,
+                    correctAnswer: q.correctAnswer,
+                    isCorrect: isCorrect
+                });
+            }
+            
+            var percent = (correctCount / questions.length) * 100;
+            
+            return { correctCount: correctCount, total: questions.length, percent: percent.toFixed(1), results: results };
+        }
+
+        function showResults() {
+            if (!validatePersonalData()) {
+                return;
+            }
+            
+            var lastName = document.getElementById("lastName").value;
+            var firstName = document.getElementById("firstName").value;
+            var patronymic = document.getElementById("patronymic").value;
+            var faculty = document.querySelector('input[name="faculty"]:checked').value;
+            var group = document.getElementById("group").value;
+            var email = document.getElementById("email").value;
+            
+            var resultsData = calculateResults();
+            
+            var win = window.open("", "resultsWin", "width=700,height=500,scrollbars=yes");
+            
+            var html = '<html><head><title>Результаты тестирования</title>';
+            html += '<style>body { font-family: Arial; padding: 20px; }';
+            html += 'table { border-collapse: collapse; width: 100%; margin-top: 20px; }';
+            html += 'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }';
+            html += 'th { background-color: #f2f2f2; }';
+            html += '.correct { background-color: #d4edda; }';
+            html += '.incorrect { background-color: #f8d7da; }';
+            html += '</style></head><body>';
+            
+            html += '<h2>Результаты тестирования</h2>';
+            html += '<h3>Личные данные:</h3>';
+            html += '<p><strong>ФИО:</strong> ' + lastName + ' ' + firstName + ' ' + patronymic + '</p>';
+            html += '<p><strong>Факультет:</strong> ' + faculty + '</p>';
+            html += '<p><strong>Группа:</strong> ' + group + '</p>';
+            html += '<p><strong>E-mail:</strong> ' + email + '</p>';
+            html += '<h3>Результат: ' + resultsData.correctCount + ' из ' + resultsData.total + ' (' + resultsData.percent + '%)</h3>';
+            
+            html += '<table>';
+            html += '<tr><th>Вопрос</th><th>Ваш ответ</th><th>Правильный ответ</th></tr>';
+            
+            for (var i = 0; i < resultsData.results.length; i++) {
+                var r = resultsData.results[i];
+                var rowClass = r.isCorrect ? 'correct' : 'incorrect';
+                html += '<tr class="' + rowClass + '">';
+                html += '<td>' + r.questionText + '</td>';
+                html += '<td>' + r.userAnswer + '</td>';
+                html += '<td>' + r.correctAnswer + '</td>';
+                html += '</tr>';
+            }
+            
+            html += '</table>';
+            html += '<br><button onclick="window.close()">Закрыть</button>';
+            html += '</body></html>';
+            
+            win.document.write(html);
+            win.document.close();
+        }
+
+        function createQuestionButtons() {
+            var container = document.getElementById("questionButtons");
+            container.innerHTML = "";
+            
+            for (var i = 0; i < questions.length; i++) {
+                var btn = document.createElement("button");
+                btn.innerHTML = "Вопрос " + questions[i].id;
+                btn.id = "qbtn_" + questions[i].id;
+                btn.className = "question-btn";
+                if (userAnswers[questions[i].id]) {
+                    btn.className = "question-btn answered";
+                }
+                btn.onclick = (function(q) {
+                    return function() { showQuestion(q); };
+                })(questions[i]);
+                container.appendChild(btn);
+            }
+        }
+
+        createQuestionButtons();
+        document.getElementById("resultBtn").onclick = showResults;
+        </script>
+    </body>
+</html>
